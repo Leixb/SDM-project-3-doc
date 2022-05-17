@@ -19,20 +19,23 @@
           python39Packages.pygments
         ];
 
+        SOURCE_DATE_EPOCH = 1653516000; # 2022-05-26
+
         texlive = pkgs.texlive.combined.scheme-full;
       in
       rec {
         devShell = pkgs.mkShell {
           name = "texlive";
           buildInputs = [ dev-packages texlive ];
+          inherit SOURCE_DATE_EPOCH;
         };
 
         packages.document = latex.lib.latexmk {
-          inherit pkgs texlive;
+          inherit pkgs texlive SOURCE_DATE_EPOCH;
           src = ./.;
           shellEscape = true;
           minted = true;
-          name = "document.pdf";
+          name = "DOC_BoneSalvan.pdf";
         };
 
         defaultPackage = packages.document;
